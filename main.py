@@ -39,7 +39,7 @@ async def on_message(message):
         **snowy pics** - get some picture of me! :frame_photo:""")
         return
 
-    if message.channel.name == 'meow':
+    if message.channel.name == 'meow' or 'general':
         user_message = user_message.lower()
         owner = ["dream", "aloysius"]
 
@@ -60,29 +60,12 @@ async def on_message(message):
             rand_attack = random.randint(5,101)
 
             if(person_attacked in owner):
-                await message.channel.send(f"IT'S YOU {person_attacked}! I recognised that you are my owner. I will not scratch you :(")
+                await message.channel.send(f"IT'S YOU {person_attacked}! I recognised that you are my owner. I will not bite you :(")
             else:
                 await message.channel.send(f"I used my puppy claws and scratched {person_attacked}! \n HP - {rand_attack}")
 
         if user_message.lower() == "snowy pics":
             pictures = ["pic1.jpg", "pic2.jpg", "pic3.jpg", "pic4.jpg", "pic5.jpg", "pic6.jpg", "pic7.jpg", "pic8.jpg", "pic9.jpg"]
-
-            random_picture = random.randint(0, len(pictures)-1)
-            choosen_picture = pictures[random_picture]
-
-            await message.channel.send("Here is a cute picture of me!", file=discord.File('images/'+ choosen_picture))
-            return
-
-    if message.channel.name == 'general':
-        if user_message.lower() == "hello":
-            await message.channel.send(f"Hello {username}, I am Aloysius's pet dog :dog: !")
-            return
-        if user_message.lower() == "depression":
-            await message.channel.send(f"nice! @{username}")
-            return
-
-        if user_message.lower() == "snowy pics":
-            pictures = ["pic1.jpg", "pic2.jpg", "pic3.jpg", "pic4.jpg", "pic5.jpg", "pic6.jpg", "pic7.jpg", "pic9.jpg"]
 
             random_picture = random.randint(0, len(pictures)-1)
             choosen_picture = pictures[random_picture]
