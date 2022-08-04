@@ -1,8 +1,10 @@
-from ast import Await
 from dotenv import load_dotenv
 import os
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
+from itertools import cycle
+import asyncio
+
 import random
 import json
 
@@ -13,21 +15,28 @@ print(f"Bot started ({TOKEN})") #debugging to check if Token is successfully ret
 
 client = discord.Client()
 bot = commands.Bot(command_prefix = "!")
+statuses = cycle(["sleeping time :zzz:", "admiring the sunset :sunglasses:", "having fun! :dog2:"])
+
+@tasks.loop(hours = 8)
+async def status_swap():
+    await client.change_presence(activity=discord.Game(name=next(statuses)))
 
 @client.event
 async def on_ready():
+    status_swap.start()
     print('We have logged in as {0.user}'.format(client))
 
-@client.event
 async def on_message(message):
+   # so that bot does not respond to itself
+    if message.author == client.user:
+        return
+
     username = str(message.author).split('#')[0]
     user_message = str(message.content)
     channel = str(message.channel.name)
+
     print(f'({channel}){username}: {user_message}')
 
-    # so that bot does not respond to itself
-    if message.author == client.user:
-        return
 
     if user_message.lower() == "snowy":
         await message.channel.send(f"""Here are some of the commands you can use off me :dog:
@@ -78,13 +87,13 @@ async def balance(ctx):
     await open_account(ctx.author)
     user = ctx.author
     users = await get_bank_data()
-    wallet_amt = users[str(user.id)]["wallet"]
-    bank_amt = users[str(user.id)]["bank"]
+    treat_amt = users[str(user.id)]["treats"]
+    closeness_amt = users[str(user.id)]["closeness"]
 
-    print(user, wallet_amt, bank_amt)
+    print(user, treat_amt, closeness_amt)
     em = discord.Embed(title = f"{ctx.author.name}'s balance", color=discord.Color.red())
-    em.add_field(name="Wallet Balance", value=wallet_amt)
-    em.add_field(name ="Bank Balance", value=bank_amt)
+    em.add_field(name="Treats Balance:bacon:", value=treat_amt)
+    em.add_field(name ="Snowy Closeness:dog:", value=closeness_amt)
     await ctx.send(embed = em)
 
 # give someone pet's closeness
@@ -94,11 +103,11 @@ async def beg(ctx):
     users = await get_bank_data()
     user = ctx.author
 
-    earnings = random.randrange(20, 101)
+    earn_treats = random.randrange(20, 101)
     
-    await ctx.send(f"Someone gave you {earnings} closeness!")
+    await ctx.send(f"Someone gave you {earn_treats} treats!")
 
-    users[str(user.id)]["wallet"] += earnings
+    users[str(user.id)]["treats"] += earn_treats
 
     with open("closeness.json", "w") as f:
         json.dump(users, f)
@@ -113,8 +122,8 @@ async def open_account(user):
 
     else:
         users[str(user.id)] = {}
-        users[str(user.id)]["wallet"] = 0
-        users[str(user.id)]["bank"] = 0
+        users[str(user.id)]["treats"] = 0
+        users[str(user.id)]["closeness"] = 0
 
     with open("closeness.json", "w") as f:
         json.dump(users, f)
@@ -127,5 +136,5 @@ async def get_bank_data():
 
     return users
 
-
 client.run(TOKEN)
+bot.run(TOKEN)
