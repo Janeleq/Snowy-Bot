@@ -35,6 +35,7 @@ async def on_message(message):
     user_message = str(message.content)
     channel = str(message.channel.name)
 
+    #logs
     print(f'({channel}){username}: {user_message}')
 
 
