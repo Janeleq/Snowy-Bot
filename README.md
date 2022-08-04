@@ -1,5 +1,6 @@
 # Snowy-Bot
 A discord pet bot made for friends
+Made with Discord.PY
 
 Does simple tasks like 
 <ul>
