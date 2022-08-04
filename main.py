@@ -41,7 +41,7 @@ async def on_message(message):
 
     if message.channel.name == 'meow':
         user_message = user_message.lower()
-        owner = "dream"
+        owner = ["dream", "aloysius"]
 
         if user_message.lower() == "hello":
             await message.channel.send(f"Hello {username}, I am Aloysius's pet dog :dog: !")
@@ -59,7 +59,7 @@ async def on_message(message):
             person_attacked = user_message.split(" ")[1]
             rand_attack = random.randint(5,101)
 
-            if(person_attacked == owner):
+            if(person_attacked in owner):
                 await message.channel.send(f"IT'S YOU {owner}! I recognised that you are my owner. I will not scratch you :(")
             else:
                 await message.channel.send(f"I used my puppy claws and scratched {person_attacked}! \n HP - {rand_attack}")
