@@ -56,7 +56,7 @@ async def on_message(message):
             return
 
         if "attack" in user_message:
-            person_attacked = user_message.split(" ")[1]
+            person_attacked = user_message.split(" ")[1].lower()
             rand_attack = random.randint(5,101)
 
             if(person_attacked in owner):
