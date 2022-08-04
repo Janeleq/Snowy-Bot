@@ -60,7 +60,7 @@ async def on_message(message):
             rand_attack = random.randint(5,101)
 
             if(person_attacked in owner):
-                await message.channel.send(f"IT'S YOU {owner}! I recognised that you are my owner. I will not scratch you :(")
+                await message.channel.send(f"IT'S YOU {person_attacked}! I recognised that you are my owner. I will not scratch you :(")
             else:
                 await message.channel.send(f"I used my puppy claws and scratched {person_attacked}! \n HP - {rand_attack}")
 
