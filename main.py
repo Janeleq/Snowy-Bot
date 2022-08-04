@@ -13,8 +13,8 @@ load_dotenv()
 TOKEN = os.getenv('TOKEN')
 print(f"Bot started ({TOKEN})") #debugging to check if Token is successfully retrieved
 
-client = discord.Client()
-bot = commands.Bot(command_prefix = "!")
+# client = discord.Client()
+client = commands.Bot(command_prefix = "!")
 statuses = cycle(["sleeping time :zzz:", "admiring the sunset :sunglasses:", "having fun! :dog2:"])
 
 @tasks.loop(hours = 8)
@@ -26,6 +26,7 @@ async def on_ready():
     status_swap.start()
     print('We have logged in as {0.user}'.format(client))
 
+@client.event
 async def on_message(message):
    # so that bot does not respond to itself
     if message.author == client.user:
@@ -41,7 +42,7 @@ async def on_message(message):
 
     if user_message.lower() == "snowy":
         await message.channel.send(f"""Here are some of the commands you can use off me :dog:
-        __General__\n
+        __General__
         **snowy** - list of commands that i can do :smile:
         **hello** - greetings! :wave: 
         **depression** - same. :sob:
@@ -60,17 +61,17 @@ async def on_message(message):
             await message.channel.send(f"Hello {username}, I am Aloysius's pet dog :dog: !")
             return
 
-        if user_message.lower() == "depression":
+        if "depression" in user_message:
             await message.channel.send(f"nice! @{username}")
             return
 
-        if user_message.lower() == "treats":
+        if user_message.startswith('treats'):
             await message.channel.send(f"love me some treats :bacon: :) {username}")
             return
 
-        if "attack" in user_message:
+        if user_message.startswith('attack'):
             person_attacked = user_message.split(" ")[1].lower()
-            rand_attack = random.randint(5,101)
+            rand_attack = random.randint(10,101)
 
             if(person_attacked in owner):
                 await message.channel.send(f"IT'S YOU {person_attacked}! I recognised that you are my owner. I will not bite you :(")
@@ -86,7 +87,7 @@ async def on_message(message):
             await message.channel.send("Here is a cute picture of me!", file=discord.File('images/'+ choosen_picture))
             return
 
-@bot.command()
+@client.command()
 async def closeness(ctx):
     await open_account(ctx.author)
     user = ctx.author
@@ -101,7 +102,7 @@ async def closeness(ctx):
     await ctx.send(embed = em)
 
 # give someone pet's closeness
-@bot.command()
+@client.command()
 async def beg(ctx):
     await open_account(ctx.author)  
     users = await get_bank_data()
@@ -141,4 +142,4 @@ async def get_bank_data():
     return users
 
 client.run(TOKEN)
-bot.run(TOKEN)
+# bot.run(TOKEN)
