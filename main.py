@@ -40,12 +40,15 @@ async def on_message(message):
 
     if user_message.lower() == "snowy":
         await message.channel.send(f"""Here are some of the commands you can use off me :dog:
+        __General__\n
         **snowy** - list of commands that i can do :smile:
         **hello** - greetings! :wave: 
         **depression** - same. :sob:
         **treats** - give me treats :yum: 
         **attack (name)** - attack that person :knife:
-        **snowy pics** - get some picture of me! :frame_photo:""")
+        **snowy pics** - get some picture of me! :frame_photo:\n
+        __Commands__
+        **!closeness** - check your closeness level with snowy and your amount of treats available (still in the making)""")
         return
 
     if message.channel.name == 'meow' or 'general':
@@ -83,7 +86,7 @@ async def on_message(message):
             return
 
 @bot.command()
-async def balance(ctx):
+async def closeness(ctx):
     await open_account(ctx.author)
     user = ctx.author
     users = await get_bank_data()
