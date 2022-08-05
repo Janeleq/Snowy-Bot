@@ -52,7 +52,7 @@ async def on_message(message):
     __Commands__
     **!closeness** - check your closeness level with snowy and your amount of treats available (still in the making)
     **!beg** - get some treats from random stranger)
-    **!treats (amount)** - give me treats :yum:""")
+    **!treats** - give me a randomized amount of treats :yum:""")
         return
 
     if message.channel.name == 'meow' or 'general':
@@ -107,27 +107,31 @@ async def treats(ctx):
     username = str(ctx.author).split('#')[0]
     users = await get_bank_data()
     user = ctx.author
-    treats_amt = random.randint(20, 101)
-    users[str(user.id)]["treats"] -= treats_amt
+    treats_amt = random.randint(20, 120)
 
     treats_acceptance = [True, False]
     random_status = random.randint(0,2)
     
     choosen_status = treats_acceptance[random_status]
   
-    closeness = users[str(user.id)]["closeness"]
-
+    
     # If pet decide to accept the treats,
     if choosen_status:
+         users[str(user.id)]["treats"] -= treats_amt
          users[str(user.id)]["closeness"] += treats_amt
-         await ctx.channel.send(f"love me some treats :bacon: :) {username}\nYou have given Snowy {treats_amt} treats!\nYour closeness with Snowy is now at {closeness}.")
+         closeness = users[str(user.id)]["closeness"]
+         with open("closeness.json", "w") as f:
+            json.dump(users, f)
+
+         await ctx.channel.send(f"love me some treats :bacon:, {username} :)\nYou have given Snowy {treats_amt} treats!\nYour closeness with Snowy is now at {closeness}.")
 
     else:
+        #  users[str(user.id)]["treats"] -= treats_amt
          users[str(user.id)]["closeness"] -= treats_amt
-         await ctx.channel.send(f"Snowy has sadly denied your treats :( {username}\nYour closeness with Snowy has reduced by {treats_amt}.")
-    
-    with open("closeness.json", "w") as f:
-        json.dump(users, f)
+         with open("closeness.json", "w") as f:
+            json.dump(users, f)
+
+         await ctx.channel.send(f"Snowy has sadly denied your treats :(, {username}\nYour closeness with Snowy has reduced by {treats_amt}.")
 
     return
 
