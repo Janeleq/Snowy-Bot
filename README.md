@@ -1,5 +1,5 @@
 # Snowy-Bot
-A discord pet bot made for friends
+A discord pet bot made for friends<br/>
 Made with Discord.PY
 
 Does simple tasks like 
@@ -9,4 +9,5 @@ Does simple tasks like
 <li>Attacking</li>
 <li>Treats</li>
 <li>Displaying pictures</li>
+<li>Checking of pet closeness</li>
 </ul>
