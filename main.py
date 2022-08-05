@@ -1,3 +1,4 @@
+from fileinput import close
 from dotenv import load_dotenv
 import os
 import discord
@@ -46,12 +47,12 @@ async def on_message(message):
     **snowy** - list of commands that i can do :smile:
     **hello** - greetings! :wave: 
     **depression** - same. :sob:
-    **treats** - give me treats :yum: 
     **attack (name)** - attack that person :knife:
     **snowy pics** - get some picture of me! :frame_photo:\n
     __Commands__
     **!closeness** - check your closeness level with snowy and your amount of treats available (still in the making)
-    **!beg** - get some treats from random stranger""")
+    **!beg** - get some treats from random stranger)
+    **!treats (amount)** - give me treats :yum:""")
         return
 
     if message.channel.name == 'meow' or 'general':
@@ -64,10 +65,6 @@ async def on_message(message):
 
         if "depression" in user_message:
             await message.channel.send(f"nice! @{username}")
-            return
-
-        if user_message.startswith('treats'):
-            await message.channel.send(f"love me some treats :bacon: :) {username}")
             return
 
         if user_message.startswith('attack'):
@@ -103,6 +100,36 @@ async def closeness(ctx):
     em.add_field(name="Treats Balance:bacon:", value=treat_amt)
     em.add_field(name ="Snowy Closeness:dog:", value=closeness_amt)
     await ctx.send(embed = em)
+
+@bot.command()
+async def treats(ctx):
+    await open_account(ctx.author)  
+    username = str(ctx.author).split('#')[0]
+    users = await get_bank_data()
+    user = ctx.author
+    treats_amt = random.randint(20, 101)
+    users[str(user.id)]["treats"] -= treats_amt
+
+    treats_acceptance = [True, False]
+    random_status = random.randint(0,2)
+    
+    choosen_status = treats_acceptance[random_status]
+  
+    closeness = users[str(user.id)]["closeness"]
+
+    # If pet decide to accept the treats,
+    if choosen_status:
+         users[str(user.id)]["closeness"] += treats_amt
+         await ctx.channel.send(f"love me some treats :bacon: :) {username}\nYou have given Snowy {treats_amt} treats!\nYour closeness with Snowy is now at {closeness}.")
+
+    else:
+         users[str(user.id)]["closeness"] -= treats_amt
+         await ctx.channel.send(f"Snowy has sadly denied your treats :( {username}\nYour closeness with Snowy has reduced by {treats_amt}.")
+    
+    with open("closeness.json", "w") as f:
+        json.dump(users, f)
+
+    return
 
 # give someone pet's closeness
 @bot.command()
