@@ -12,7 +12,7 @@ Does simple tasks like
 <li>Checking of pet closeness</li>
 </ul>
 
-# Project Setup
+# Project Setup (TBC)
 ## Pre-installations <br/>
 Discord
 <ul>
