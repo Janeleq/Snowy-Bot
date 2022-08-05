@@ -11,3 +11,7 @@ Does simple tasks like
 <li>Displaying pictures</li>
 <li>Checking of pet closeness</li>
 </ul>
+
+# Project Setup
+<code>pip install discord</code>
+<code>pip install discord.py</code>
