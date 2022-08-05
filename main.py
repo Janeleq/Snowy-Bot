@@ -4,7 +4,6 @@ import discord
 from discord.ext import commands, tasks
 from itertools import cycle
 import asyncio
-
 import random
 import json
 
@@ -14,22 +13,23 @@ TOKEN = os.getenv('TOKEN')
 print(f"Bot started ({TOKEN})") #debugging to check if Token is successfully retrieved
 
 # client = discord.Client()
-client = commands.Bot(command_prefix = "!")
-statuses = cycle(["sleeping time :zzz:", "admiring the sunset :sunglasses:", "having fun! :dog2:"])
+statuses = cycle(["having fun!", "admiring the sunset :sunglasses:", "sleeping time :zzz:"])
 
 @tasks.loop(hours = 8)
 async def status_swap():
-    await client.change_presence(activity=discord.Game(name=next(statuses)))
+    await bot.change_presence(activity=discord.Game(name=next(statuses)))
 
-@client.event
+bot = commands.Bot(command_prefix = "!")
+
+@bot.event
 async def on_ready():
     status_swap.start()
-    print('We have logged in as {0.user}'.format(client))
+    print('We have logged in as {0.user}'.format(bot))
 
-@client.event
+@bot.event
 async def on_message(message):
    # so that bot does not respond to itself
-    if message.author == client.user:
+    if message.author == bot.user:
         return
 
     username = str(message.author).split('#')[0]
@@ -42,15 +42,16 @@ async def on_message(message):
 
     if user_message.lower() == "snowy":
         await message.channel.send(f"""Here are some of the commands you can use off me :dog:
-        __General__
-        **snowy** - list of commands that i can do :smile:
-        **hello** - greetings! :wave: 
-        **depression** - same. :sob:
-        **treats** - give me treats :yum: 
-        **attack (name)** - attack that person :knife:
-        **snowy pics** - get some picture of me! :frame_photo:\n
-        __Commands__
-        **!closeness** - check your closeness level with snowy and your amount of treats available (still in the making)""")
+    __General__
+    **snowy** - list of commands that i can do :smile:
+    **hello** - greetings! :wave: 
+    **depression** - same. :sob:
+    **treats** - give me treats :yum: 
+    **attack (name)** - attack that person :knife:
+    **snowy pics** - get some picture of me! :frame_photo:\n
+    __Commands__
+    **!closeness** - check your closeness level with snowy and your amount of treats available (still in the making)
+    **!beg** - get some treats from random stranger""")
         return
 
     if message.channel.name == 'meow' or 'general':
@@ -86,8 +87,10 @@ async def on_message(message):
 
             await message.channel.send("Here is a cute picture of me!", file=discord.File('images/'+ choosen_picture))
             return
+        # for bot to process commands
+        await bot.process_commands(message)
 
-@client.command()
+@bot.command(aliases=['closenesss', 'snowy closeness'])
 async def closeness(ctx):
     await open_account(ctx.author)
     user = ctx.author
@@ -102,7 +105,7 @@ async def closeness(ctx):
     await ctx.send(embed = em)
 
 # give someone pet's closeness
-@client.command()
+@bot.command()
 async def beg(ctx):
     await open_account(ctx.author)  
     users = await get_bank_data()
@@ -141,5 +144,6 @@ async def get_bank_data():
 
     return users
 
-client.run(TOKEN)
-# bot.run(TOKEN)
+            
+# client.run(TOKEN)
+bot.run(TOKEN)
