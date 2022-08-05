@@ -13,5 +13,9 @@ Does simple tasks like
 </ul>
 
 # Project Setup
-<code>pip install discord</code>
-<code>pip install discord.py</code>
+## Pre-installations <br/>
+Discord
+<ul>
+<li><code>pip install discord</code></li>
+<li><code>pip install discord.py</code></li>
+</ul>
