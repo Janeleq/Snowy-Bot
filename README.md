@@ -22,4 +22,4 @@ Discord
 
 
 # Progress
-5 August: Completed closeness system, pet is now able to be given treats and have a certain closeness with the user.
+<b>5 August</b>: Completed closeness system, pet is now able to be given treats and have a certain closeness with the user.
