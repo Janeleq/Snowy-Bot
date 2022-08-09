@@ -19,3 +19,7 @@ Discord
 <li><code>pip install discord</code></li>
 <li><code>pip install discord.py</code></li>
 </ul>
+
+
+# Progress
+5 August: Completed closeness system, pet is now able to be given treats and have a certain closeness with the user.
