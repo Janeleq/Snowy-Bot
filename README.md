@@ -24,14 +24,14 @@ Discord
 ### General
 snowy - list of commands that i can do :smile:<br/>
 hello - greetings! :wave:<br/>
-depression - same. :sob:<br/>
-attack (name) - attack that person :knife:<br/>
-snowy pics - get some picture of me! :frame_photo:<br/>
+depression - a meme reply saying same. :sob:<br/>
+attack (name) - attack that specific person mentioned :knife:<br/>
+snowy pics - get some picture of snowy, the dog
 
 ### Commands
 !closeness - check your closeness level with snowy and your amount of treats available (still in the making)<br/>
 !beg - get some treats from random stranger)<br/>
-!treats - give me a randomized amount of treats :yum:<br/>
+!treats - give snowy, the dog, a randomized amount of treats :yum:<br/>
 
 # Progress
 <b>5 August</b>: Completed closeness system, pet is now able to be given treats and have a certain closeness with the user.
