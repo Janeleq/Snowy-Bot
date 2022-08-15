@@ -21,17 +21,17 @@ Discord
 </ul>
 
 # Bot Usage
-    ## General
-    snowy - list of commands that i can do :smile:
-    hello - greetings! :wave: 
-    depression - same. :sob:
-    attack (name) - attack that person :knife:
-    snowy pics - get some picture of me! :frame_photo:
+## General
+snowy - list of commands that i can do :smile:
+hello - greetings! :wave: 
+depression - same. :sob:
+attack (name) - attack that person :knife:
+snowy pics - get some picture of me! :frame_photo:
 
-    ## Commands
-    !closeness - check your closeness level with snowy and your amount of treats available (still in the making)
-    !beg - get some treats from random stranger)
-    !treats - give me a randomized amount of treats :yum:
+## Commands
+!closeness - check your closeness level with snowy and your amount of treats available (still in the making)
+!beg - get some treats from random stranger)
+!treats - give me a randomized amount of treats :yum:
 
 # Progress
 <b>5 August</b>: Completed closeness system, pet is now able to be given treats and have a certain closeness with the user.
